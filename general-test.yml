@@ -1,0 +1,29 @@
+config:
+  target: "http://garu.uiocloud.no:50000"
+  processor: "./login-hook.js"
+
+  phases:
+  - duration: 300   # Rapid increase phase
+    arrivalRate: 200  # Start at 5 VUs
+    rampTo: 250
+
+
+  plugins:
+    metrics-by-endpoint: {} # Breakdown of metrics by endpoint
+ # Breakdown of metrics by endpoint
+
+
+# Your specific API endpoint
+
+scenarios:
+  - name: "Login"
+    flow:
+      - post:
+          url: "/api/fetchUserData"
+          json:
+            jwt: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2M2Y4MzgxYTM1ODI0YjIyYTVlMDZjNSIsImlhdCI6MTcxNTQzODU5MiwiZXhwIjoxNzIzMjE0NTkyfQ.lYD8B9g87DzRNtiNYp2Zn1AgGfMkPcnkKqP6fozSMys"
+      # - function: "randomAction"  # Calls a function that executes a random API call¨
+      # - think: 1
+      # - post:
+      #     url: "{{ request.url }}"
+      #     json: "{{ request.json }}"
